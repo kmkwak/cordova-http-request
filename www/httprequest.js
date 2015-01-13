@@ -1,4 +1,4 @@
-cordova.define("cordova.plugin.httprequest", function (require, exports, module) {
+cordova.define("cordova.plugin.httprequest.httprequest", function (require, exports, module) {
 
     var exec = require('cordova/exec');
 
