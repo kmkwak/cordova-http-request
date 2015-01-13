@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" id="cordova.plugin.httprequest" version="0.0.1">
+    <engines>
+        <engine name="cordova" version=">=4.0.0" />
+    </engines>
+    <name>Http Request</name>
+    <description>Cordova Http Request Plugin</description>
+    <author>Kyungman Kwak</author>
+    <keywords>cordova,http,request</keywords>
+    <license>Apache 2.0 License</license>
+
+    <!-- wp8 -->
+    <platform name="wp8">
+        <config-file target="Properties/WMAppManifest.xml" parent="/Deployment/App/Capabilities">
+            <Capability Name="ID_CAP_NETWORKING"/>
+        </config-file>
+
+        <config-file target="config.xml" parent="/*">
+            <feature name="HttpRequest">
+                <param name="wp-package" value="HttpRequest"/>
+            </feature>
+        </config-file>
+
+        <js-module src="www/httprequest.js" name="httprequest">
+            <merges target="window" />
+        </js-module>
+
+        <source-file src="src/wp/HttpRequest.cs" />
+    </platform>
+
+</plugin>
