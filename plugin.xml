@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" id="cordova.plugin.httprequest" version="0.0.1">
     <engines>
-        <engine name="cordova" version=">=4.0.0" />
+        <engine name="cordova" version=">=3.0.0" />
     </engines>
     <name>Http Request</name>
     <description>Cordova Http Request Plugin</description>
