@@ -43,6 +43,7 @@ namespace WPCordovaClassLib.Cordova.Commands
         public void request(string options)
         {
             string argsString = JSON.JsonHelper.Deserialize<string[]>(options)[0];
+            string callbackId = JSON.JsonHelper.Deserialize<string[]>(options)[1];
             string[] args = JSON.JsonHelper.Deserialize<string[]>(argsString);
             string url = args[0];
             string cookie = args[1];
@@ -59,14 +60,17 @@ namespace WPCordovaClassLib.Cordova.Commands
                 webHeaderCollection[pair.Key] = pair.Value;
             }
 
-            request.BeginGetResponse(responseCallback, request);
+            request.BeginGetResponse(responseCallback, new object[] {request, callbackId});
 
 
         }
 
         void responseCallback(IAsyncResult result)
         {
-            HttpWebRequest request = result.AsyncState as HttpWebRequest;
+            object[] responseCallbackParams = (object[])result.AsyncState;
+            HttpWebRequest request = (HttpWebRequest)responseCallbackParams[0];
+            string callbackId = (string)responseCallbackParams[1];
+
             if (request != null)
             {
                 try
@@ -76,7 +80,9 @@ namespace WPCordovaClassLib.Cordova.Commands
                     using (var reader = new StreamReader(response.GetResponseStream())) 
                     {
                         string jsonString = reader.ReadToEnd();
-                        DispatchCommandResult(new PluginResult(PluginResult.Status.OK, jsonString));
+                        PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, jsonString);
+                        pluginResult.KeepCallback = true;
+                        DispatchCommandResult(pluginResult, callbackId);
                     }
                     
                 }

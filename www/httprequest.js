@@ -1,6 +1,4 @@
 
-var exec = require('cordova/exec');
-
 function HttpRequest() {
 
 }
@@ -16,7 +14,7 @@ HttpRequest.prototype.echo = function (params, callback) {
     }
     options.push(JSON.stringify(temp));
     
-    exec(callback, function (err) {
+    cordova.exec(callback, function (err) {
         callback('Nothing to echo.');
     }, "HttpRequest", "echo", [JSON.stringify(options)]);
 };
@@ -32,7 +30,7 @@ HttpRequest.prototype.request = function (params, callback) {
     }
     options.push(JSON.stringify(temp));
 
-    exec(callback, function (err) {
+    cordova.exec(callback, function (err) {
         callback();
     }, "HttpRequest", "request", [JSON.stringify(options)]);
 };
